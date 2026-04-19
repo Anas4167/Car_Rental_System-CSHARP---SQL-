@@ -40,13 +40,11 @@ CREATE TABLE RENTALS (
     RentalID Int PRIMARY KEY,
     CustomerID Int,
     CarID Int,
-    EmployeeID Int,
     RentDate Date NOT NULL,
     ReturnDate Date NULL,
     TotalAmount Decimal(10,2) NOT NULL,
     FOREIGN KEY (CustomerID) REFERENCES CUSTOMERS(CustomerID),
-    FOREIGN KEY (CarID) REFERENCES CARS(CarID),
-    FOREIGN KEY (EmployeeID) REFERENCES EMPLOYEES(EmployeeID)
+    FOREIGN KEY (CarID) REFERENCES CARS(CarID)
 );
 
 -- 5. Create PAYMENTS Table
