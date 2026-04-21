@@ -1,6 +1,6 @@
-CREATE DATABASE car_rental_management
+CREATE DATABASE Car_Rental_Management
 
-USE car_rental_management
+USE Car_Rental_Management
 
 
 -- 1. Create CUSTOMERS Table
@@ -10,6 +10,7 @@ CREATE TABLE CUSTOMERS (
     LastName Varchar(100) NOT NULL,
     PhoneNumber Varchar(20) NOT NULL,
     Email Varchar(150) NOT NULL,
+	Password varchar(150) not null,
     Address Varchar(255) NOT NULL
 ); 
 
@@ -56,3 +57,5 @@ CREATE TABLE PAYMENTS (
     AmountPaid Decimal(10,2) NOT NULL,
     FOREIGN KEY (RentalID) REFERENCES RENTALS(RentalID)
 ); 
+
+SELECT *FROM PAYMENTS
