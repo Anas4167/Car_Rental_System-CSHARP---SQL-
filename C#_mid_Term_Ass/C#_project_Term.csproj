@@ -80,6 +80,18 @@
     <Compile Include="DeleteRental.Designer.cs">
       <DependentUpon>DeleteRental.cs</DependentUpon>
     </Compile>
+    <Compile Include="insertCar.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="insertCar.Designer.cs">
+      <DependentUpon>insertCar.cs</DependentUpon>
+    </Compile>
+    <Compile Include="insertEmployee.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="insertEmployee.Designer.cs">
+      <DependentUpon>insertEmployee.cs</DependentUpon>
+    </Compile>
     <Compile Include="insertPayment.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -150,6 +162,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="insertCar.resx">
+      <DependentUpon>insertCar.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="insertEmployee.resx">
+      <DependentUpon>insertEmployee.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="insertPayment.resx">
       <DependentUpon>insertPayment.cs</DependentUpon>

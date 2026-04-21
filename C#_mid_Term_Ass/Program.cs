@@ -6,6 +6,7 @@ using System.Windows.Forms;
 
 namespace C__project_Term
 {
+
     internal static class Program
     {
         /// <summary>
