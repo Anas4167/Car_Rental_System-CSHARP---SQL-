@@ -15,6 +15,33 @@ namespace C__project_Term
         public Payments()
         {
             InitializeComponent();
+            button2.Visible = false;
+            button3.Visible = false;
+            button4.Visible = false;
         }
+        private void OpenForm(Form childForm)
+        {
+           
+
+            childForm.StartPosition = FormStartPosition.CenterScreen;
+            childForm.Show();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            button3.Visible = true;
+            button2.Visible = true;
+                        button4.Visible = true;
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            // Check if an instance of insertPayment is already active
+            OpenForm(new insertPayment());
+
+        }
+     
+
+        
     }
 }
