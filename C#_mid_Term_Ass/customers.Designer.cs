@@ -44,53 +44,60 @@
             this.panel2.Controls.Add(this.button2);
             this.panel2.Controls.Add(this.button1);
             this.panel2.Location = new System.Drawing.Point(0, 0);
+            this.panel2.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(1141, 778);
+            this.panel2.Size = new System.Drawing.Size(1284, 972);
             this.panel2.TabIndex = 4;
+            this.panel2.Paint += new System.Windows.Forms.PaintEventHandler(this.panel2_Paint);
             // 
             // button4
             // 
-            this.button4.Location = new System.Drawing.Point(563, 710);
+            this.button4.Location = new System.Drawing.Point(633, 888);
+            this.button4.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(100, 41);
+            this.button4.Size = new System.Drawing.Size(112, 51);
             this.button4.TabIndex = 3;
             this.button4.Text = "insert";
             this.button4.UseVisualStyleBackColor = true;
             // 
             // button3
             // 
-            this.button3.Location = new System.Drawing.Point(687, 710);
+            this.button3.Location = new System.Drawing.Point(773, 888);
+            this.button3.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(100, 41);
+            this.button3.Size = new System.Drawing.Size(112, 51);
             this.button3.TabIndex = 4;
             this.button3.Text = "button2";
             this.button3.UseVisualStyleBackColor = true;
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(834, 710);
+            this.button2.Location = new System.Drawing.Point(938, 888);
+            this.button2.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(100, 41);
+            this.button2.Size = new System.Drawing.Size(112, 51);
             this.button2.TabIndex = 5;
             this.button2.Text = "button2";
             this.button2.UseVisualStyleBackColor = true;
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(1019, 710);
+            this.button1.Location = new System.Drawing.Point(1146, 888);
+            this.button1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(106, 41);
+            this.button1.Size = new System.Drawing.Size(119, 51);
             this.button1.TabIndex = 2;
             this.button1.Text = "Meneu";
             this.button1.UseVisualStyleBackColor = true;
             // 
             // customers
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1141, 877);
+            this.ClientSize = new System.Drawing.Size(1284, 1096);
             this.Controls.Add(this.panel2);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.Name = "customers";
             this.Text = "customers";
             this.panel2.ResumeLayout(false);

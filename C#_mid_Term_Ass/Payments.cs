@@ -18,6 +18,7 @@ namespace C__project_Term
             button2.Visible = false;
             button3.Visible = false;
             button4.Visible = false;
+            button5.Visible = false;
         }
         private void OpenForm(Form childForm)
         {
@@ -31,7 +32,13 @@ namespace C__project_Term
         {
             button3.Visible = true;
             button2.Visible = true;
+
             button4.Visible = true;
+
+                        button4.Visible = true;
+            button5.Visible = true;
+            button1.Visible = false;
+
         }
 
         private void button4_Click(object sender, EventArgs e)
@@ -40,8 +47,30 @@ namespace C__project_Term
             OpenForm(new insertPayment());
 
         }
-     
 
-        
+        private void button5_Click(object sender, EventArgs e)
+        {
+            button1.Visible = true;
+            button2.Visible = false;
+            button3.Visible = false;
+            button4.Visible = false;
+            button5.Visible = false;
+
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            OpenForm(new updatePayment());
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            OpenForm(new deletePayment());
+        }
+
+        private void panel2_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
     }
 }
