@@ -38,14 +38,14 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
-            this.textBox6 = new System.Windows.Forms.TextBox();
+            this.textBox5 = new System.Windows.Forms.TextBox();
             this.panel1 = new System.Windows.Forms.Panel();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // textBox1
             // 
-            this.textBox1.Location = new System.Drawing.Point(288, 90);
+            this.textBox1.Location = new System.Drawing.Point(291, 32);
             this.textBox1.Multiline = true;
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(443, 44);
@@ -54,7 +54,7 @@
             // 
             // textBox2
             // 
-            this.textBox2.Location = new System.Drawing.Point(288, 145);
+            this.textBox2.Location = new System.Drawing.Point(291, 87);
             this.textBox2.Multiline = true;
             this.textBox2.Name = "textBox2";
             this.textBox2.Size = new System.Drawing.Size(443, 44);
@@ -62,7 +62,7 @@
             // 
             // textBox3
             // 
-            this.textBox3.Location = new System.Drawing.Point(288, 200);
+            this.textBox3.Location = new System.Drawing.Point(291, 142);
             this.textBox3.Multiline = true;
             this.textBox3.Name = "textBox3";
             this.textBox3.Size = new System.Drawing.Size(443, 44);
@@ -70,7 +70,7 @@
             // 
             // textBox4
             // 
-            this.textBox4.Location = new System.Drawing.Point(288, 258);
+            this.textBox4.Location = new System.Drawing.Point(291, 200);
             this.textBox4.Multiline = true;
             this.textBox4.Name = "textBox4";
             this.textBox4.Size = new System.Drawing.Size(443, 44);
@@ -137,14 +137,14 @@
             this.label5.TabIndex = 2;
             this.label5.Text = "AmountPaid";
             // 
-            // textBox6
+            // textBox5
             // 
-            this.textBox6.Location = new System.Drawing.Point(288, 37);
-            this.textBox6.Multiline = true;
-            this.textBox6.Name = "textBox6";
-            this.textBox6.Size = new System.Drawing.Size(443, 44);
-            this.textBox6.TabIndex = 0;
-            this.textBox6.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
+            this.textBox5.Location = new System.Drawing.Point(291, 250);
+            this.textBox5.Multiline = true;
+            this.textBox5.Name = "textBox5";
+            this.textBox5.Size = new System.Drawing.Size(443, 44);
+            this.textBox5.TabIndex = 0;
+            this.textBox5.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
             // 
             // panel1
             // 
@@ -152,7 +152,7 @@
             this.panel1.Controls.Add(this.label5);
             this.panel1.Controls.Add(this.textBox1);
             this.panel1.Controls.Add(this.label4);
-            this.panel1.Controls.Add(this.textBox6);
+            this.panel1.Controls.Add(this.textBox5);
             this.panel1.Controls.Add(this.label3);
             this.panel1.Controls.Add(this.textBox2);
             this.panel1.Controls.Add(this.label2);
@@ -190,7 +190,7 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.TextBox textBox6;
+        private System.Windows.Forms.TextBox textBox5;
         private System.Windows.Forms.Panel panel1;
     }
 }
