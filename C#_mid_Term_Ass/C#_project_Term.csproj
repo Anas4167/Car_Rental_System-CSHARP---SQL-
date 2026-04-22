@@ -68,6 +68,24 @@
     <Compile Include="Dashbord.Designer.cs">
       <DependentUpon>Dashbord.cs</DependentUpon>
     </Compile>
+    <Compile Include="DeleteCar.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DeleteCar.Designer.cs">
+      <DependentUpon>DeleteCar.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DeleteCustomer.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DeleteCustomer.Designer.cs">
+      <DependentUpon>DeleteCustomer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DeleteEmployee.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DeleteEmployee.Designer.cs">
+      <DependentUpon>DeleteEmployee.cs</DependentUpon>
+    </Compile>
     <Compile Include="deletePayment.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -80,11 +98,23 @@
     <Compile Include="DeleteRental.Designer.cs">
       <DependentUpon>DeleteRental.cs</DependentUpon>
     </Compile>
+    <Compile Include="Employees.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Employees.Designer.cs">
+      <DependentUpon>Employees.cs</DependentUpon>
+    </Compile>
     <Compile Include="insertCar.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="insertCar.Designer.cs">
       <DependentUpon>insertCar.cs</DependentUpon>
+    </Compile>
+    <Compile Include="InsertCustomer.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="InsertCustomer.Designer.cs">
+      <DependentUpon>InsertCustomer.cs</DependentUpon>
     </Compile>
     <Compile Include="insertEmployee.cs">
       <SubType>Form</SubType>
@@ -103,12 +133,6 @@
     </Compile>
     <Compile Include="Payments.Designer.cs">
       <DependentUpon>Payments.cs</DependentUpon>
-    </Compile>
-    <Compile Include="employees.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="employees.Designer.cs">
-      <DependentUpon>employees.cs</DependentUpon>
     </Compile>
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
@@ -136,6 +160,24 @@
     <Compile Include="rentalUpdate.Designer.cs">
       <DependentUpon>rentalUpdate.cs</DependentUpon>
     </Compile>
+    <Compile Include="UpdateCar.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UpdateCar.Designer.cs">
+      <DependentUpon>UpdateCar.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UpdateCustomer.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UpdateCustomer.Designer.cs">
+      <DependentUpon>UpdateCustomer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UpdateEmployee.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UpdateEmployee.Designer.cs">
+      <DependentUpon>UpdateEmployee.cs</DependentUpon>
+    </Compile>
     <Compile Include="updatePayment.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -151,20 +193,32 @@
     <EmbeddedResource Include="Dashbord.resx">
       <DependentUpon>Dashbord.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="DeleteCar.resx">
+      <DependentUpon>DeleteCar.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DeleteCustomer.resx">
+      <DependentUpon>DeleteCustomer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DeleteEmployee.resx">
+      <DependentUpon>DeleteEmployee.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="deletePayment.resx">
       <DependentUpon>deletePayment.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="DeleteRental.resx">
       <DependentUpon>DeleteRental.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="employees.resx">
-      <DependentUpon>employees.cs</DependentUpon>
+    <EmbeddedResource Include="Employees.resx">
+      <DependentUpon>Employees.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="insertCar.resx">
       <DependentUpon>insertCar.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="InsertCustomer.resx">
+      <DependentUpon>InsertCustomer.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="insertEmployee.resx">
       <DependentUpon>insertEmployee.cs</DependentUpon>
@@ -192,6 +246,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="rentalUpdate.resx">
       <DependentUpon>rentalUpdate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UpdateCar.resx">
+      <DependentUpon>UpdateCar.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UpdateCustomer.resx">
+      <DependentUpon>UpdateCustomer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UpdateEmployee.resx">
+      <DependentUpon>UpdateEmployee.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="updatePayment.resx">
       <DependentUpon>updatePayment.cs</DependentUpon>

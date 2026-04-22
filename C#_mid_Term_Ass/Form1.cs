@@ -56,7 +56,7 @@ namespace C__project_Term
 
         private void button3_Click(object sender, EventArgs e)
         {
-            form_load(new employees());
+            form_load(new Employees());
         }
 
         private void button5_Click(object sender, EventArgs e)

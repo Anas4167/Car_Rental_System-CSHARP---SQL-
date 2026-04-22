@@ -10,35 +10,50 @@ using System.Windows.Forms;
 
 namespace C__project_Term
 {
-    public partial class employees : Form
+    public partial class Employees : Form
     {
-        public employees()
+        public Employees()
         {
             InitializeComponent();
-           
             button2.Visible = false;
             button3.Visible = false;
             button4.Visible = false;
-       
-        }
-        private void OpenForm(Form childForm)
-        {
-
-
-            childForm.StartPosition = FormStartPosition.CenterScreen;
-            childForm.Show();
+            button5.Visible = false;
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void button1_Click_1(object sender, EventArgs e)
         {
             button3.Visible = true;
             button2.Visible = true;
             button4.Visible = true;
+            button5.Visible = true;
+            button1.Visible = false;
+        }
+        private void button5_Click_1(object sender, EventArgs e)
+        {
+            button1.Visible = true;
+            button2.Visible = false;
+            button3.Visible = false;
+            button4.Visible = false;
+            button5.Visible = false;
         }
 
-        private void button4_Click(object sender, EventArgs e)
+        private void button2_Click_1(object sender, EventArgs e)
         {
-            OpenForm(new insertEmployee());
+            DeleteEmployee delEm = new DeleteEmployee();
+            delEm.Show();
+        }
+
+        private void button3_Click_1(object sender, EventArgs e)
+        {
+            UpdateEmployee updateEm = new UpdateEmployee();
+            updateEm.Show();
+        }
+
+        private void button4_Click_1(object sender, EventArgs e)
+        {
+            insertEmployee inserEm = new insertEmployee();
+            inserEm.Show();
         }
     }
 }

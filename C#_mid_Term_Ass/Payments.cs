@@ -33,9 +33,9 @@ namespace C__project_Term
             button3.Visible = true;
             button2.Visible = true;
 
-            button4.Visible = true;
+      
 
-                        button4.Visible = true;
+            button4.Visible = true;
             button5.Visible = true;
             button1.Visible = false;
 

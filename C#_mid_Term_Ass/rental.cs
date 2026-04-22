@@ -59,7 +59,7 @@ namespace C__project_Term
             deleteRental.Show();
         }
 
-        string connectionString = "Data Source=DESKTOP-0ID2UPP;Initial Catalog=Car_Rental_Management;Integrated Security=True;Encrypt=False";
+        string connectionString = "DData Source=DESKTOP-SHPCJHB;Initial Catalog=car_rental_management;Integrated Security=True;Encrypt=False";
 
         SqlConnection sqlconnection = new SqlConnection();
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
