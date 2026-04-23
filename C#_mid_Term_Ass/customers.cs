@@ -20,6 +20,11 @@ namespace C__project_Term
             button3.Visible = false;
             button4.Visible = false;
             button5.Visible = false;
+            LoadCustomer();
+
+            dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dataGridView1.ReadOnly = true;
+            dataGridView1.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
         }
       
 
@@ -49,28 +54,62 @@ namespace C__project_Term
         private void button2_Click(object sender, EventArgs e)
         {
             DeleteCustomer deleteCustomer = new DeleteCustomer();
+            deleteCustomer.FormClosed += (s, args) => LoadCustomer();
             deleteCustomer.Show();
         }
 
         private void button3_Click(object sender, EventArgs e)
         {
-            UpdateCustomer updateCustomer = new UpdateCustomer();
-            updateCustomer.Show();
+            if (dataGridView1.CurrentRow != null)
+            {
+                DataGridViewRow row = dataGridView1.CurrentRow;
+
+                UpdateCustomer updateCustomer = new UpdateCustomer(
+                    Convert.ToInt32(row.Cells["CustomerID"].Value),
+                    row.Cells["FirstName"].Value.ToString(),
+                    row.Cells["LastName"].Value.ToString(),
+                    row.Cells["PhoneNumber"].Value.ToString(),
+                    row.Cells["Email"].Value.ToString(),
+                    row.Cells["Password"].Value.ToString(),
+                    row.Cells["Address"].Value.ToString()
+                );
+
+                updateCustomer.FormClosed += (s, args) => LoadCustomer();
+
+                updateCustomer.Show();
+            }
         }
 
         private void button4_Click(object sender, EventArgs e)
         {
-            InsertCustomer insertCustomer = new InsertCustomer();  
+            InsertCustomer insertCustomer = new InsertCustomer();
+            insertCustomer.FormClosed += (s, args) => LoadCustomer();
             insertCustomer.Show();
         }
 
-        string connectionString = "DData Source=DESKTOP-SHPCJHB;Initial Catalog=car_rental_management;Integrated Security=True;Encrypt=False";
 
-        SqlConnection sqlconnection = new SqlConnection();
+        //Anas connection
+        string connectionString = "Data Source=DESKTOP-SHPCJHB;Initial Catalog=car_rental_management;Integrated Security=True;Encrypt=False";
+
+        
+        private void LoadCustomer()
+        {
+            SqlConnection con = new SqlConnection(connectionString);
+
+            string query = "SELECT * FROM CUSTOMERS";
+
+            SqlDataAdapter da = new SqlDataAdapter(query, con);
+            DataTable dt = new DataTable();
+           
+
+            da.Fill(dt);
+
+            dataGridView1.DataSource = dt;
+        }
 
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-
+            LoadCustomer();
         }
     }
 }

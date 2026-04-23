@@ -24,6 +24,7 @@ namespace C__project_Term
             LoadRentals();
 
             dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dataGridView1.ReadOnly = true;
             dataGridView1.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
         }
 
@@ -47,34 +48,47 @@ namespace C__project_Term
 
         private void button4_Click(object sender, EventArgs e)
         {
-            ReantalInser form2 = new ReantalInser();
-            form2.Show();
+            ReantalInser insertRental = new ReantalInser();
+            insertRental.FormClosed += (s, args) => LoadRentals();
+            insertRental.Show();
         }
 
         private void button3_Click(object sender, EventArgs e)
         {
-            rentalUpdate rentalUpdate = new rentalUpdate();
-            rentalUpdate.Show();
+            if (dataGridView1.CurrentRow != null)
+            {
+                DataGridViewRow row = dataGridView1.CurrentRow;
+
+                rentalUpdate updateRental = new rentalUpdate(
+                    Convert.ToInt32(row.Cells["RentalID"].Value),
+                    Convert.ToInt32(row.Cells["CustomerID"].Value),
+                    Convert.ToInt32(row.Cells["CarID"].Value),
+                    row.Cells["RentDate"].Value.ToString(),
+                    row.Cells["ReturnDate"].Value?.ToString(),
+                    row.Cells["TotalAmount"].Value.ToString()
+                );
+
+                updateRental.FormClosed += (s, args) => LoadRentals();
+
+                updateRental.Show();
+            }
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
             DeleteRental deleteRental = new DeleteRental();
+            deleteRental.FormClosed += (s, args) => LoadRentals();
             deleteRental.Show();
         }
 
 
-        string connectionString = "DData Source=DESKTOP-SHPCJHB;Initial Catalog=car_rental_management;Integrated Security=True;Encrypt=False";
+        //Anas connection
+        string connectionString = "Data Source=DESKTOP-SHPCJHB;Initial Catalog=car_rental_management;Integrated Security=True;Encrypt=False";
 
-        SqlConnection sqlconnection = new SqlConnection();
-
-       
-      
-        string connectionString = "Data Source=DESKTOP-0ID2UPP;Initial Catalog=Car_Rental_Management;Integrated Security=True;Encrypt=False";
 
         private void LoadRentals()
         {
-            SqlConnection con = new SqlConnection();
+            SqlConnection con = new SqlConnection(connectionString);
 
             string query = "SELECT * FROM RENTALS";
 
@@ -90,11 +104,16 @@ namespace C__project_Term
         {
             //dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             LoadRentals();
+
+          
         }
+
+
 
         private void button6_Click(object sender, EventArgs e)
         {
            LoadRentals();
+           
         }
     }
 }

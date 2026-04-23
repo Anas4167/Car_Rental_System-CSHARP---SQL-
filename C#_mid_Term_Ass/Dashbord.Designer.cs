@@ -74,6 +74,7 @@
             this.panel5.Name = "panel5";
             this.panel5.Size = new System.Drawing.Size(275, 177);
             this.panel5.TabIndex = 0;
+            this.panel5.Paint += new System.Windows.Forms.PaintEventHandler(this.panel5_Paint);
             // 
             // label7
             // 
@@ -104,6 +105,7 @@
             this.panel4.Name = "panel4";
             this.panel4.Size = new System.Drawing.Size(275, 177);
             this.panel4.TabIndex = 0;
+            this.panel4.Paint += new System.Windows.Forms.PaintEventHandler(this.panel4_Paint);
             // 
             // label5
             // 
@@ -134,6 +136,7 @@
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(275, 177);
             this.panel3.TabIndex = 0;
+            this.panel3.Paint += new System.Windows.Forms.PaintEventHandler(this.panel3_Paint);
             // 
             // label3
             // 
@@ -184,6 +187,7 @@
             this.label10.Size = new System.Drawing.Size(133, 25);
             this.label10.TabIndex = 0;
             this.label10.Text = "Total Resnts";
+            this.label10.Click += new System.EventHandler(this.label10_Click);
             // 
             // panel1
             // 
@@ -205,6 +209,7 @@
             this.label2.Size = new System.Drawing.Size(36, 25);
             this.label2.TabIndex = 0;
             this.label2.Text = "56";
+            this.label2.Click += new System.EventHandler(this.label2_Click);
             // 
             // label1
             // 

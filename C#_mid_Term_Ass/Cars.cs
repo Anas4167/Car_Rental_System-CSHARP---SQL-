@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.SqlClient;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -19,6 +20,11 @@ namespace C__project_Term
             button3.Visible = false;
             button4.Visible = false;
             button5.Visible = false;
+            LoadCars();
+
+            dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dataGridView1.ReadOnly = true;
+            dataGridView1.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
         }
    
 
@@ -53,19 +59,61 @@ namespace C__project_Term
         private void button4_Click(object sender, EventArgs e)
         {
             insertCar insertCar = new insertCar();
+            insertCar.FormClosed += (s, args) => LoadCars();
             insertCar.Show();
         }
 
         private void button3_Click(object sender, EventArgs e)
         {
-            UpdateCar updateCar = new UpdateCar();
-            updateCar.Show();
+            if (dataGridView1.CurrentRow != null)
+            {
+                DataGridViewRow row = dataGridView1.CurrentRow;
+
+                UpdateCar updateCar = new UpdateCar(
+                    Convert.ToInt32(row.Cells["CarID"].Value),
+                    row.Cells["CarName"].Value.ToString(),
+                    row.Cells["Brand"].Value.ToString(),
+                    row.Cells["Model"].Value.ToString(),
+                    Convert.ToInt32(row.Cells["YearMade"].Value),
+                    row.Cells["PlateNumber"].Value.ToString(),
+                    row.Cells["PricePerDay"].Value.ToString(),
+                    row.Cells["Status"].Value.ToString()
+                );
+
+                updateCar.FormClosed += (s, args) => LoadCars();
+
+                updateCar.Show();
+            }
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
-            DeleteCar deleteCar = new DeleteCar();
-            deleteCar.Show();
+            DeleteCar delCar = new DeleteCar();
+
+            delCar.FormClosed += (s, args) => LoadCars();
+
+            delCar.Show();
+        }
+        //Anas connection
+        string connectionString = "Data Source=DESKTOP-SHPCJHB;Initial Catalog=car_rental_management;Integrated Security=True;Encrypt=False";
+
+        private void LoadCars()
+        {
+            SqlConnection con = new SqlConnection(connectionString);
+
+            string query = "SELECT * FROM CARS";
+
+            SqlDataAdapter da = new SqlDataAdapter(query, con);
+            DataTable dt = new DataTable();
+
+            da.Fill(dt);
+
+            dataGridView1.DataSource = dt;
+        }
+
+        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            LoadCars();
         }
     }
 }

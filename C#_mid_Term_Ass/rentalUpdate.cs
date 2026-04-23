@@ -9,42 +9,108 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.TextBox;
 
 namespace C__project_Term
 {
     public partial class rentalUpdate : Form
     {
-        public rentalUpdate()
+        public rentalUpdate(int rentalId, int customerId, int carId, string rentDate, string returnDate, string total)
         {
             InitializeComponent();
+            textBox1.Text = rentalId.ToString();
+            textBox2.Text = customerId.ToString();
+            textBox3.Text = carId.ToString();
+            textBox4.Text = rentDate;
+            textBox5.Text = returnDate;
+            textBox6.Text = total;
         }
+
+        //Anas connection
+        string connectionString = "Data Source=DESKTOP-SHPCJHB;Initial Catalog=car_rental_management;Integrated Security=True;Encrypt=False";
 
         private void button1_Click(object sender, EventArgs e)
         {
-       
-            SqlConnection cnn = new SqlConnection(
-                "Data Source=DESKTOP-0ID2UPP;Initial Catalog=Car_Rental_Management;Integrated Security=True;Encrypt=False"
-            );
 
-            string query = "UPDATE RENTALS SET CustomerID=@CustomerID, CarID=@CarID, RentDate=@RentDate, ReturnDate=@ReturnDate, TotalAmount=@TotalAmount WHERE RentalID=@RentalID";
+            if (textBox1.Text == "" || textBox2.Text == "" || textBox3.Text == "" ||
+                  textBox4.Text == "" || textBox6.Text == "")
+            {
+                MessageBox.Show("Please fill all required fields");
+                return;
+            }
 
-            SqlCommand cmd = new SqlCommand(query, cnn);
+          
+            if (!int.TryParse(textBox1.Text, out int rentalId) ||
+                !int.TryParse(textBox2.Text, out int customerId) ||
+                !int.TryParse(textBox3.Text, out int carId))
+            {
+                MessageBox.Show("Invalid IDs");
+                return;
+            }
 
-            // assign values from textboxes
-            cmd.Parameters.AddWithValue("@RentalID", textBox1.Text);
-            cmd.Parameters.AddWithValue("@CustomerID", textBox2.Text);
-            cmd.Parameters.AddWithValue("@CarID", textBox3.Text);
-            cmd.Parameters.AddWithValue("@RentDate", textBox4.Text);
-            cmd.Parameters.AddWithValue("@ReturnDate", textBox5.Text);
-            cmd.Parameters.AddWithValue("@TotalAmount", textBox6.Text);
 
-            cnn.Open();
-            cmd.ExecuteNonQuery();
-            cnn.Close();
+            if (!decimal.TryParse(textBox6.Text, out decimal total))
+            {
+                MessageBox.Show("Invalid amount");
+                return;
+            }
 
-            MessageBox.Show("Rental updated successfully!");
-        
+            using (SqlConnection con = new SqlConnection(connectionString))
+            {
+                con.Open();
 
-    }
+              
+                string checkQuery = @"SELECT COUNT(*) FROM RENTALS 
+                                     WHERE CarID = @carId 
+                                     AND ReturnDate IS NULL 
+                                     AND RentalID != @rid";
+
+                SqlCommand checkCmd = new SqlCommand(checkQuery, con);
+                checkCmd.Parameters.AddWithValue("@carId", carId);
+                checkCmd.Parameters.AddWithValue("@rid", rentalId);
+
+                int count = (int)checkCmd.ExecuteScalar();
+
+                if (count > 0)
+                {
+                    MessageBox.Show("Car is already rented!");
+                    return;
+                }
+
+             
+                string query = @"UPDATE RENTALS 
+                         SET CustomerID=@cid,
+                             CarID=@carid,
+                             RentDate=@rentDate,
+                             ReturnDate=@returnDate,
+                             TotalAmount=@total
+                         WHERE RentalID=@rid";
+
+                SqlCommand cmd = new SqlCommand(query, con);
+
+                cmd.Parameters.AddWithValue("@rid", rentalId);
+                cmd.Parameters.AddWithValue("@cid", customerId);
+                cmd.Parameters.AddWithValue("@carid", carId);
+                cmd.Parameters.AddWithValue("@rentDate", DateTime.Parse(textBox4.Text));
+
+                if (string.IsNullOrWhiteSpace(textBox5.Text))
+                    cmd.Parameters.AddWithValue("@returnDate", DBNull.Value);
+                else
+                    cmd.Parameters.AddWithValue("@returnDate", DateTime.Parse(textBox5.Text));
+
+                cmd.Parameters.AddWithValue("@total", total);
+
+                int rows = cmd.ExecuteNonQuery();
+
+                if (rows > 0)
+                    MessageBox.Show("Rental updated successfully!");
+                else
+                    MessageBox.Show("No record updated! Check RentalID.");
+            }
+
+            this.Close();
+
+
+        }
     }
 }

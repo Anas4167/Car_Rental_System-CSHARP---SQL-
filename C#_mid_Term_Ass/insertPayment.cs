@@ -24,29 +24,77 @@ namespace C__project_Term
 
         }
 
+        //Anas connection
+        string connectionString = "Data Source=DESKTOP-SHPCJHB;Initial Catalog=car_rental_management;Integrated Security=True;Encrypt=False";
+
         private void button1_Click(object sender, EventArgs e)
         {
-            SqlConnection conn = new SqlConnection(
-              "Data Source=DESKTOP-0ID2UPP;Initial Catalog=Car_Rental_Management;Integrated Security=True;Encrypt=False"
-              );
+            if (textBox1.Text == "" || textBox2.Text == "" || textBox3.Text == "" ||
+               textBox4.Text == "" || textBox5.Text == "")
+            {
+                MessageBox.Show("Please fill all fields");
+                return;
+            }
 
-            string query = "INSERT INTO PAYMENTS (PaymentID, RentalID, PaymentDate, PaymentMethod, AmountPaid) " +
-                           "VALUES (@PaymentID, @RentalID, @PaymentDate, @PaymentMethod, @AmountPaid)";
+            
+            if (!int.TryParse(textBox1.Text, out int paymentId) ||
+                !int.TryParse(textBox2.Text, out int rentalId))
+            {
+                MessageBox.Show("Invalid IDs");
+                return;
+            }
 
-            SqlCommand cmd = new SqlCommand(query, conn);
+          
+            if (!decimal.TryParse(textBox5.Text, out decimal amount))
+            {
+                MessageBox.Show("Invalid amount");
+                return;
+            }
 
-            // assign textbox values
-            cmd.Parameters.AddWithValue("@PaymentID", textBox1.Text);
-            cmd.Parameters.AddWithValue("@RentalID", textBox2.Text);
-            cmd.Parameters.AddWithValue("@PaymentDate", textBox3.Text);
-            cmd.Parameters.AddWithValue("@PaymentMethod", textBox4.Text);
-            cmd.Parameters.AddWithValue("@AmountPaid", textBox5.Text);
+            using (SqlConnection con = new SqlConnection(connectionString))
+            {
+                con.Open();
 
-            conn.Open();
-            cmd.ExecuteNonQuery();
-            conn.Close();
+                
+                string checkQuery = "SELECT COUNT(*) FROM RENTALS WHERE RentalID = @rid";
+                SqlCommand checkCmd = new SqlCommand(checkQuery, con);
+                checkCmd.Parameters.AddWithValue("@rid", rentalId);
 
-            MessageBox.Show("Payment added successfully!");
+                int exists = (int)checkCmd.ExecuteScalar();
+
+                if (exists == 0)
+                {
+                    MessageBox.Show("Rental ID does not exist!");
+                    return;
+                }
+
+              
+                string query = @"INSERT INTO PAYMENTS
+                (PaymentID, RentalID, PaymentDate, PaymentMethod, AmountPaid)
+                VALUES
+                (@pid, @rid, @date, @method, @amount)";
+
+                SqlCommand cmd = new SqlCommand(query, con);
+
+                cmd.Parameters.AddWithValue("@pid", paymentId);
+                cmd.Parameters.AddWithValue("@rid", rentalId);
+                cmd.Parameters.AddWithValue("@date", DateTime.Parse(textBox3.Text));
+                cmd.Parameters.AddWithValue("@method", textBox4.Text);
+                cmd.Parameters.AddWithValue("@amount", amount);
+
+                cmd.ExecuteNonQuery();
+
+                MessageBox.Show("Payment inserted successfully!");
+            }
+
+          
+            textBox1.Clear();
+            textBox2.Clear();
+            textBox3.Clear();
+            textBox4.Clear();
+            textBox5.Clear();
+
+            this.Close();
         }
     }
 }

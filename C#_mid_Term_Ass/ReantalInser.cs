@@ -34,30 +34,81 @@ namespace C__project_Term
 
         }
 
+        //Anas connection
+        string connectionString = "Data Source=DESKTOP-SHPCJHB;Initial Catalog=car_rental_management;Integrated Security=True;Encrypt=False";
+
         private void button1_Click(object sender, EventArgs e)
         {
-            SqlConnection conn = new SqlConnection(
-                 "Data Source=DESKTOP-0ID2UPP;Initial Catalog=Car_Rental_Management;Integrated Security=True;Encrypt=False"
-             );
+            if (textBox1.Text == "" || textBox2.Text == "" || textBox3.Text == "" ||
+              textBox4.Text == "" || textBox5.Text == "" || textBox6.Text == "")
+            {
+                MessageBox.Show("Please fill all fields");
+                return;
+            }
 
-            string query = "INSERT INTO RENTALS (RentalID, CustomerID, CarID, RentDate, ReturnDate, TotalAmount) " +
-                           "VALUES (@RentalID, @CustomerID, @CarID, @RentDate, @ReturnDate, @TotalAmount)";
+     
+            if (!int.TryParse(textBox1.Text, out int rentalId) ||
+                !int.TryParse(textBox2.Text, out int customerId) ||
+                !int.TryParse(textBox3.Text, out int carId))
+            {
+                MessageBox.Show("Invalid ID(s)");
+                return;
+            }
 
-            SqlCommand cmd = new SqlCommand(query, conn);
+           
+            if (!decimal.TryParse(textBox6.Text, out decimal totalAmount))
+            {
+                MessageBox.Show("Invalid Total Amount");
+                return;
+            }
 
-            // assign textbox values
-            cmd.Parameters.AddWithValue("@RentalID", textBox1.Text);
-            cmd.Parameters.AddWithValue("@CustomerID", textBox2.Text);
-            cmd.Parameters.AddWithValue("@CarID", textBox3.Text);
-            cmd.Parameters.AddWithValue("@RentDate", textBox4.Text);
-            cmd.Parameters.AddWithValue("@ReturnDate", textBox5.Text);
-            cmd.Parameters.AddWithValue("@TotalAmount", textBox6.Text);
+            using (SqlConnection con = new SqlConnection(connectionString))
+            {
+                con.Open();
 
-            conn.Open();
-            cmd.ExecuteNonQuery();
-            conn.Close();
+             
+                string checkQuery = "SELECT COUNT(*) FROM RENTALS WHERE CarID = @carId AND ReturnDate IS NULL";
+                SqlCommand checkCmd = new SqlCommand(checkQuery, con);
+                checkCmd.Parameters.AddWithValue("@carId", carId);
 
-            MessageBox.Show("Rental added successfully!");
+                int count = (int)checkCmd.ExecuteScalar();
+
+                if (count > 0)
+                {
+                    MessageBox.Show("Car is already rented!");
+                    return;
+                }
+
+               
+                string query = @"INSERT INTO RENTALS
+                (RentalID, CustomerID, CarID, RentDate, ReturnDate, TotalAmount)
+                VALUES
+                (@rid, @cid, @carid, @rentDate, @returnDate, @total)";
+
+                SqlCommand cmd = new SqlCommand(query, con);
+
+                cmd.Parameters.AddWithValue("@rid", rentalId);
+                cmd.Parameters.AddWithValue("@cid", customerId);
+                cmd.Parameters.AddWithValue("@carid", carId);
+                cmd.Parameters.AddWithValue("@rentDate", (textBox4.Text));
+                cmd.Parameters.AddWithValue("@returnDate",
+                    string.IsNullOrEmpty(textBox5.Text) ? (object)DBNull.Value : DateTime.Parse(textBox5.Text));
+                cmd.Parameters.AddWithValue("@total", totalAmount);
+
+                cmd.ExecuteNonQuery();
+
+                MessageBox.Show("Rental inserted successfully!");
+            }
+
+         
+            textBox1.Clear();
+            textBox2.Clear();
+            textBox3.Clear();
+            textBox4.Clear();
+            textBox5.Clear();
+            textBox6.Clear();
+
+            this.Close();
 
 
         }

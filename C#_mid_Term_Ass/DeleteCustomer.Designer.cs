@@ -39,26 +39,24 @@
             // 
             this.panel1.Controls.Add(this.textBox6);
             this.panel1.Controls.Add(this.label1);
-            this.panel1.Location = new System.Drawing.Point(170, 37);
-            this.panel1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.panel1.Location = new System.Drawing.Point(151, 30);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(999, 514);
+            this.panel1.Size = new System.Drawing.Size(888, 411);
             this.panel1.TabIndex = 9;
             // 
             // textBox6
             // 
-            this.textBox6.Location = new System.Drawing.Point(327, 215);
-            this.textBox6.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.textBox6.Location = new System.Drawing.Point(291, 172);
             this.textBox6.Multiline = true;
             this.textBox6.Name = "textBox6";
-            this.textBox6.Size = new System.Drawing.Size(498, 54);
+            this.textBox6.Size = new System.Drawing.Size(443, 44);
             this.textBox6.TabIndex = 0;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(92, 228);
+            this.label1.Location = new System.Drawing.Point(82, 182);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(126, 25);
             this.label1.TabIndex = 2;
@@ -67,21 +65,22 @@
             // button1
             // 
             this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button1.Location = new System.Drawing.Point(189, 602);
-            this.button1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.button1.Location = new System.Drawing.Point(168, 482);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(999, 62);
+            this.button1.Size = new System.Drawing.Size(888, 50);
             this.button1.TabIndex = 8;
-            this.button1.Text = "Insert Data";
+            this.button1.Text = "Delete Data";
             this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // DeleteCustomer
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1339, 774);
+            this.ClientSize = new System.Drawing.Size(1190, 619);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.button1);
+            this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "DeleteCustomer";
             this.Text = "DeleteCustomer";
             this.Load += new System.EventHandler(this.DeleteCustomer_Load);

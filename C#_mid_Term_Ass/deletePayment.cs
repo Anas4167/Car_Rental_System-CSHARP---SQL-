@@ -19,24 +19,36 @@ namespace C__project_Term
             InitializeComponent();
         }
 
+        //Anas connection
+        string connectionString = "Data Source=DESKTOP-SHPCJHB;Initial Catalog=car_rental_management;Integrated Security=True;Encrypt=False";
+
         private void button1_Click(object sender, EventArgs e)
         {
-            SqlConnection cnn = new SqlConnection(
-                "Data Source=DESKTOP-0ID2UPP;Initial Catalog=Car_Rental_Management;Integrated Security=True;Encrypt=False"
-            );
+            if (!int.TryParse(textBox6.Text, out int paymentId))
+            {
+                MessageBox.Show("Please enter Payment ID");
+                return;
+            }
 
-            string query = "DELETE FROM PAYMENTS WHERE PaymentID = @PaymentID";
+            using (SqlConnection con = new SqlConnection(connectionString))
+            {
+                con.Open();
 
-            SqlCommand cmd = new SqlCommand(query, cnn);
+               
+                string query = "DELETE FROM PAYMENTS WHERE PaymentID = @id";
+                SqlCommand cmd = new SqlCommand(query, con);
+                cmd.Parameters.AddWithValue("@id", paymentId);
 
-            // get ID from textbox
-            cmd.Parameters.AddWithValue("@PaymentID", Convert.ToInt32(textBox6.Text));
+                int rows = cmd.ExecuteNonQuery();
 
-            cnn.Open();
-            cmd.ExecuteNonQuery();
-            cnn.Close();
+                if (rows > 0)
+                    MessageBox.Show("Payment deleted successfully!");
+                else
+                    MessageBox.Show("Payment not found!");
+            }
 
-            MessageBox.Show("Payment deleted successfully!");
+            textBox6.Clear();
+            this.Close();
         }
     }
 }

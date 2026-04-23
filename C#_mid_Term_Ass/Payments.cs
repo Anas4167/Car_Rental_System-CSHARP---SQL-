@@ -13,8 +13,8 @@ namespace C__project_Term
 {
     public partial class Payments : Form
     {
-        // Connection string
-        string connectionString = "Data Source=DESKTOP-0ID2UPP;Initial Catalog=Car_Rental_Management;Integrated Security=True;Encrypt=False";
+
+
 
         public Payments()
         {
@@ -25,9 +25,10 @@ namespace C__project_Term
             button4.Visible = false;
             button5.Visible = false;
 
-            LoadRentals();
+            LoadPayment();
 
             dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dataGridView1.ReadOnly = true;
             dataGridView1.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
         }
 
@@ -37,7 +38,7 @@ namespace C__project_Term
             childForm.Show();
         }
 
-        private void LoadRentals()
+        private void LoadPayment()
         {
             using (SqlConnection con = new SqlConnection(connectionString))
             {
@@ -49,6 +50,8 @@ namespace C__project_Term
                 dataGridView1.DataSource = dt;
             }
         }
+        //Anas connection
+        string connectionString = "Data Source=DESKTOP-SHPCJHB;Initial Catalog=car_rental_management;Integrated Security=True;Encrypt=False";
 
         private void button1_Click(object sender, EventArgs e)
         {
@@ -61,7 +64,9 @@ namespace C__project_Term
 
         private void button4_Click(object sender, EventArgs e)
         {
-            OpenForm(new insertPayment());
+            insertPayment inserPay = new insertPayment();
+            inserPay.FormClosed += (s, args) => LoadPayment();
+            inserPay.Show();
         }
 
         private void button5_Click(object sender, EventArgs e)
@@ -75,17 +80,35 @@ namespace C__project_Term
 
         private void button3_Click(object sender, EventArgs e)
         {
-            OpenForm(new updatePayment());
+            if (dataGridView1.CurrentRow != null)
+            {
+                DataGridViewRow row = dataGridView1.CurrentRow;
+
+                updatePayment updatePay = new updatePayment(
+                    Convert.ToInt32(row.Cells["PaymentID"].Value),
+                    Convert.ToInt32(row.Cells["RentalID"].Value),
+                    row.Cells["PaymentDate"].Value.ToString(),
+                    row.Cells["PaymentMethod"].Value.ToString(),
+                    row.Cells["AmountPaid"].Value.ToString()
+                );
+
+                updatePay.FormClosed += (s, args) => LoadPayment();
+
+                updatePay.Show();
+            }
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
-            OpenForm(new deletePayment());
+            deletePayment delPay = new deletePayment();
+            delPay.FormClosed += (s, args) => LoadPayment();
+            delPay.Show();
+
         }
 
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            LoadRentals();
+            LoadPayment();
         }
 
         private void panel2_Paint(object sender, PaintEventArgs e)
