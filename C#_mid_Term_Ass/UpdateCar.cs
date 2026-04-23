@@ -47,12 +47,12 @@ namespace C__project_Term
                 return;
             }
 
-            // 🔥 Get status
+           
             string status = "";
             if (radioButton1.Checked)
-                status = "Active";
+                status = "Available";
             else if (radioButton2.Checked)
-                status = "NotActive";
+                status = "Rented";
             else
             {
                 MessageBox.Show("Select status");
