@@ -88,16 +88,17 @@ namespace C__project_Term
 
         private void LoadRentals()
         {
-            SqlConnection con = new SqlConnection(connectionString);
+            using (SqlConnection con = new SqlConnection(connectionString))
+            {
+                SqlCommand cmd = new SqlCommand("GetAllRentals", con);
+                cmd.CommandType = CommandType.StoredProcedure;
 
-            string query = "SELECT * FROM RENTALS";
+                SqlDataAdapter da = new SqlDataAdapter(cmd);
+                DataTable dt = new DataTable();
+                da.Fill(dt);
 
-            SqlDataAdapter da = new SqlDataAdapter(query, con);
-            DataTable dt = new DataTable();
-
-            da.Fill(dt);
-
-            dataGridView1.DataSource = dt;
+                dataGridView1.DataSource = dt;
+            }
         }
 
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
