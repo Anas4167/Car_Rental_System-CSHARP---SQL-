@@ -126,3 +126,43 @@ FROM RENTALS
 WHERE RentalID = 5
 
 
+
+
+
+CREATE PROCEDURE GetAllRentals
+AS
+BEGIN
+    SELECT 
+        r.RentalID,
+        r.CustomerID,
+        r.CarID,
+        c.FirstName + ' ' + c.LastName AS CustomerName,
+        ca.CarName,
+        r.RentDate,
+        r.ReturnDate,
+        r.TotalAmount
+    FROM RENTALS r
+    JOIN CUSTOMERS c ON r.CustomerID = c.CustomerID
+    JOIN CARS ca ON r.CarID = ca.CarID
+END
+
+
+GO
+CREATE TRIGGER trg_UpdateCarStatus
+ON RENTALS
+AFTER INSERT, UPDATE
+AS
+BEGIN
+    UPDATE CARS
+    SET Status = 'Rented'
+    WHERE CarID IN (
+        SELECT CarID FROM inserted WHERE ReturnDate IS NULL
+    )
+
+    UPDATE CARS
+    SET Status = 'Available'
+    WHERE CarID IN (
+        SELECT CarID FROM inserted WHERE ReturnDate IS NOT NULL
+    )
+END
+GO
