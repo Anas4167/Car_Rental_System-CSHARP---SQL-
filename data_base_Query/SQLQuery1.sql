@@ -147,6 +147,8 @@ BEGIN
 END
 
 
+
+
 GO
 CREATE TRIGGER trg_UpdateCarStatus
 ON RENTALS

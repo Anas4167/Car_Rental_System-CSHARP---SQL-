@@ -101,16 +101,16 @@ namespace C__project_Term
         {
             using (SqlConnection con = new SqlConnection(connectionString))
             {
-                SqlCommand cmd = new SqlCommand("GetAllRentals", con);
-                cmd.CommandType = CommandType.StoredProcedure;
+                string query = "SELECT * FROM CARS";
 
-                SqlDataAdapter da = new SqlDataAdapter(cmd);
+                SqlDataAdapter da = new SqlDataAdapter(query, con);
                 DataTable dt = new DataTable();
                 da.Fill(dt);
 
                 dataGridView1.DataSource = dt;
             }
         }
+
 
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {

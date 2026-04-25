@@ -177,6 +177,7 @@
             this.label9.Size = new System.Drawing.Size(36, 25);
             this.label9.TabIndex = 0;
             this.label9.Text = "56";
+            this.label9.Click += new System.EventHandler(this.label9_Click);
             // 
             // label10
             // 
@@ -230,6 +231,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "Dashbord";
             this.Text = "Dashbord";
+            this.Load += new System.EventHandler(this.Dashbord_Load);
             this.panel2.ResumeLayout(false);
             this.panel5.ResumeLayout(false);
             this.panel5.PerformLayout();

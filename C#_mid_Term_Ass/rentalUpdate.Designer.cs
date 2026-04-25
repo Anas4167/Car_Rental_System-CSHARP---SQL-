@@ -62,7 +62,7 @@
             this.panel1.Location = new System.Drawing.Point(204, 92);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(888, 392);
-            this.panel1.TabIndex = 7;
+            this.panel1.TabIndex = 9;
             // 
             // textBox3
             // 
@@ -178,10 +178,9 @@
             this.button1.Location = new System.Drawing.Point(204, 502);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(888, 50);
-            this.button1.TabIndex = 6;
+            this.button1.TabIndex = 8;
             this.button1.Text = "Update Data Reatal";
             this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // rentalUpdate
             // 

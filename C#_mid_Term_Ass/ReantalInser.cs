@@ -33,41 +33,86 @@ namespace C__project_Term
         {
 
         }
+        private void LoadCustomers()
+        {
+            using (SqlConnection con = new SqlConnection(connectionString))
+            {
+                string query = "SELECT CustomerID, FirstName + ' ' + LastName AS Name FROM CUSTOMERS";
+
+                SqlDataAdapter da = new SqlDataAdapter(query, con);
+                DataTable dt = new DataTable();
+                da.Fill(dt);
+
+                DataRow row = dt.NewRow();
+                row["CustomerID"] = 0;
+                row["Name"] = "choose Customer";
+                dt.Rows.InsertAt(row, 0);
+
+                comboBox1.DataSource = dt;
+                comboBox1.DisplayMember = "Name";
+                comboBox1.ValueMember = "CustomerID";
+            }
+        }
+        private void LoadCars()
+        {
+            using (SqlConnection con = new SqlConnection(connectionString))
+            {
+
+                string query = "SELECT CarID, CarName FROM CARS WHERE Status='Available'";
+
+                SqlDataAdapter da = new SqlDataAdapter(query, con);
+                DataTable dt = new DataTable();
+                da.Fill(dt);
+
+                DataRow row = dt.NewRow();
+                row["CarID"] = 0;
+                row["CarName"] = "choose Car";
+                dt.Rows.InsertAt(row, 0);
+
+                comboBox2.DataSource = dt;
+                comboBox2.DisplayMember = "CarName";
+                comboBox2.ValueMember = "CarID";
+            }
+        }
 
         //Anas connection
         string connectionString = "Data Source=DESKTOP-SHPCJHB;Initial Catalog=car_rental_management;Integrated Security=True;Encrypt=False";
 
+
         private void button1_Click(object sender, EventArgs e)
         {
-            if (textBox1.Text == "" || textBox2.Text == "" || textBox3.Text == "" ||
-              textBox4.Text == "" || textBox5.Text == "" || textBox6.Text == "")
+            if (textBox1.Text == "" || textBox6.Text == "" ||
+        comboBox1.SelectedValue == null || comboBox2.SelectedValue == null)
             {
                 MessageBox.Show("Please fill all fields");
                 return;
             }
 
-     
-            if (!int.TryParse(textBox1.Text, out int rentalId) ||
-                !int.TryParse(textBox2.Text, out int customerId) ||
-                !int.TryParse(textBox3.Text, out int carId))
+            
+            if (!int.TryParse(textBox1.Text, out int rentalId))
             {
-                MessageBox.Show("Invalid ID(s)");
+                MessageBox.Show("Invalid Rental ID");
                 return;
             }
 
-           
+            
             if (!decimal.TryParse(textBox6.Text, out decimal totalAmount))
             {
                 MessageBox.Show("Invalid Total Amount");
                 return;
             }
 
+            
+            int customerId = Convert.ToInt32(comboBox1.SelectedValue);
+            int carId = Convert.ToInt32(comboBox2.SelectedValue);
+
             using (SqlConnection con = new SqlConnection(connectionString))
             {
                 con.Open();
 
-             
-                string checkQuery = "SELECT COUNT(*) FROM RENTALS WHERE CarID = @carId AND ReturnDate IS NULL";
+               
+                string checkQuery = "SELECT COUNT(*) FROM RENTALS WHERE CarID=@carId AND ReturnDate IS NULL";
+
                 SqlCommand checkCmd = new SqlCommand(checkQuery, con);
                 checkCmd.Parameters.AddWithValue("@carId", carId);
 
@@ -81,18 +126,24 @@ namespace C__project_Term
 
                
                 string query = @"INSERT INTO RENTALS
-                (RentalID, CustomerID, CarID, RentDate, ReturnDate, TotalAmount)
-                VALUES
-                (@rid, @cid, @carid, @rentDate, @returnDate, @total)";
+                                (RentalID, CustomerID, CarID, RentDate, ReturnDate, TotalAmount)
+                                VALUES
+                                (@rid, @cid, @carid, @rentDate, @returnDate, @total)";
 
                 SqlCommand cmd = new SqlCommand(query, con);
 
                 cmd.Parameters.AddWithValue("@rid", rentalId);
                 cmd.Parameters.AddWithValue("@cid", customerId);
                 cmd.Parameters.AddWithValue("@carid", carId);
-                cmd.Parameters.AddWithValue("@rentDate", (textBox4.Text));
-                cmd.Parameters.AddWithValue("@returnDate",
-                    string.IsNullOrEmpty(textBox5.Text) ? (object)DBNull.Value : DateTime.Parse(textBox5.Text));
+
+               
+                cmd.Parameters.AddWithValue("@rentDate", dateTimePicker1.Value);
+
+                if (dateTimePicker2.Checked)
+                    cmd.Parameters.AddWithValue("@returnDate", dateTimePicker2.Value);
+                else
+                    cmd.Parameters.AddWithValue("@returnDate", DBNull.Value);
+
                 cmd.Parameters.AddWithValue("@total", totalAmount);
 
                 cmd.ExecuteNonQuery();
@@ -100,17 +151,20 @@ namespace C__project_Term
                 MessageBox.Show("Rental inserted successfully!");
             }
 
-         
-            textBox1.Clear();
-            textBox2.Clear();
-            textBox3.Clear();
-            textBox4.Clear();
-            textBox5.Clear();
-            textBox6.Clear();
-
             this.Close();
 
 
+        }
+
+        private void textBox2_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void ReantalInser_Load(object sender, EventArgs e)
+        {
+            LoadCustomers();
+            LoadCars();
         }
     }
 }

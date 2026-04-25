@@ -29,17 +29,18 @@ namespace C__project_Term
         //Anas connection
         string connectionString = "Data Source=DESKTOP-SHPCJHB;Initial Catalog=car_rental_management;Integrated Security=True;Encrypt=False";
 
+
         private void button1_Click(object sender, EventArgs e)
         {
 
             if (textBox1.Text == "" || textBox2.Text == "" || textBox3.Text == "" ||
-                  textBox4.Text == "" || textBox6.Text == "")
+                 textBox4.Text == "" || textBox6.Text == "")
             {
                 MessageBox.Show("Please fill all required fields");
                 return;
             }
 
-          
+
             if (!int.TryParse(textBox1.Text, out int rentalId) ||
                 !int.TryParse(textBox2.Text, out int customerId) ||
                 !int.TryParse(textBox3.Text, out int carId))
@@ -59,7 +60,7 @@ namespace C__project_Term
             {
                 con.Open();
 
-              
+
                 string checkQuery = @"SELECT COUNT(*) FROM RENTALS 
                                      WHERE CarID = @carId 
                                      AND ReturnDate IS NULL 
@@ -77,7 +78,7 @@ namespace C__project_Term
                     return;
                 }
 
-             
+
                 string query = @"UPDATE RENTALS 
                          SET CustomerID=@cid,
                              CarID=@carid,
