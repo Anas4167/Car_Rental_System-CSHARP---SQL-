@@ -49,8 +49,8 @@ namespace C__project_Term
                 dt.Rows.InsertAt(row, 0);
 
                 comboBox1.DataSource = dt;
-                comboBox1.DisplayMember = "Name";
-                comboBox1.ValueMember = "CustomerID";
+                comboBox1.DisplayMember = "CustomerID";
+                //comboBox1.ValueMember = "CustomerID";
             }
         }
         private void LoadCars()
@@ -70,8 +70,8 @@ namespace C__project_Term
                 dt.Rows.InsertAt(row, 0);
 
                 comboBox2.DataSource = dt;
-                comboBox2.DisplayMember = "CarName";
-                comboBox2.ValueMember = "CarID";
+                comboBox2.DisplayMember = "CarID";
+                //comboBox2.ValueMember = "CarID";
             }
         }
 

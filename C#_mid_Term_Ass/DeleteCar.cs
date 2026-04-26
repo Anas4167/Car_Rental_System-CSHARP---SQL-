@@ -31,34 +31,43 @@ namespace C__project_Term
 
             //int carId = int.Parse(textBox6.Text);
 
-            using (SqlConnection con = new SqlConnection(connectionString))
+            try
             {
-                con.Open();
-
-
-                string checkQuery = "SELECT COUNT(*) FROM RENTALS WHERE CarID = @id AND ReturnDate IS NULL";
-                SqlCommand checkCmd = new SqlCommand(checkQuery, con);
-                checkCmd.Parameters.AddWithValue("@id", carId);
-
-                int count = (int)checkCmd.ExecuteScalar();
-
-                if (count > 0)
+                using (SqlConnection con = new SqlConnection(connectionString))
                 {
-                    MessageBox.Show("Cannot delete: Car is currently rented!");
-                    return;
+                    con.Open();
+
+                    // Check if car is currently rented
+                    string checkQuery = "SELECT COUNT(*) FROM RENTALS WHERE CarID = @id AND ReturnDate IS NULL";
+                    SqlCommand checkCmd = new SqlCommand(checkQuery, con);
+                    checkCmd.Parameters.AddWithValue("@id", carId);
+
+                    int count = (int)checkCmd.ExecuteScalar();
+
+                    if (count > 0)
+                    {
+                        MessageBox.Show("Cannot delete: Car is currently rented!");
+                        return;
+                    }
+
+                    // Delete car
+                    string deleteQuery = "DELETE FROM CARS WHERE CarID = @id";
+                    SqlCommand deleteCmd = new SqlCommand(deleteQuery, con);
+                    deleteCmd.Parameters.AddWithValue("@id", carId);
+
+                    int rows = deleteCmd.ExecuteNonQuery();
+
+                    if (rows > 0)
+                        MessageBox.Show("Car deleted successfully!");
+                    else
+                        MessageBox.Show("Car not found!");
                 }
+            }
+            catch (Exception ex)
+            {
+                //MessageBox.Show("Error: " + ex.Message);
+                MessageBox.Show("Cannot delete: Car is currently rented!");
 
-              
-                string deleteQuery = "DELETE FROM CARS WHERE CarID = @id";
-                SqlCommand deleteCmd = new SqlCommand(deleteQuery, con);
-                deleteCmd.Parameters.AddWithValue("@id", carId);
-
-                int rows = deleteCmd.ExecuteNonQuery();
-
-                if (rows > 0)
-                    MessageBox.Show("Car deleted successfully!");
-                else
-                    MessageBox.Show("Car not found!");
             }
 
             textBox6.Clear();

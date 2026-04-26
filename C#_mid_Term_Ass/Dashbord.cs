@@ -154,7 +154,12 @@ namespace C__project_Term
             label5.Text = GetCount("EMPLOYEES").ToString();
             label7.Text = GetCount("PAYMENTS").ToString();
             label9.Text = GetCount("RENTALS").ToString();
-        
-    }
+            }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            
+            //Application.Exit();
+        }
     }
 }

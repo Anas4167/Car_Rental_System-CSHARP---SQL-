@@ -33,85 +33,106 @@ namespace C__project_Term
         private void button1_Click(object sender, EventArgs e)
         {
 
-            if (textBox1.Text == "" || textBox2.Text == "" || textBox3.Text == "" ||
-                 textBox4.Text == "" || textBox6.Text == "")
+           
+
+
+        }
+
+        private void button1_Click_1(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            try
             {
-                MessageBox.Show("Please fill all required fields");
-                return;
-            }
-
-
-            if (!int.TryParse(textBox1.Text, out int rentalId) ||
-                !int.TryParse(textBox2.Text, out int customerId) ||
-                !int.TryParse(textBox3.Text, out int carId))
-            {
-                MessageBox.Show("Invalid IDs");
-                return;
-            }
-
-
-            if (!decimal.TryParse(textBox6.Text, out decimal total))
-            {
-                MessageBox.Show("Invalid amount");
-                return;
-            }
-
-            using (SqlConnection con = new SqlConnection(connectionString))
-            {
-                con.Open();
-
-
-                string checkQuery = @"SELECT COUNT(*) FROM RENTALS 
-                                     WHERE CarID = @carId 
-                                     AND ReturnDate IS NULL 
-                                     AND RentalID != @rid";
-
-                SqlCommand checkCmd = new SqlCommand(checkQuery, con);
-                checkCmd.Parameters.AddWithValue("@carId", carId);
-                checkCmd.Parameters.AddWithValue("@rid", rentalId);
-
-                int count = (int)checkCmd.ExecuteScalar();
-
-                if (count > 0)
+                if (textBox1.Text == "" || textBox2.Text == "" || textBox3.Text == "" ||
+                    textBox4.Text == "" || textBox6.Text == "")
                 {
-                    MessageBox.Show("Car is already rented!");
+                    MessageBox.Show("Please fill all required fields");
                     return;
                 }
 
+                if (!int.TryParse(textBox1.Text, out int rentalId) ||
+                    !int.TryParse(textBox2.Text, out int customerId) ||
+                    !int.TryParse(textBox3.Text, out int carId))
+                {
+                    MessageBox.Show("Invalid IDs");
+                    return;
+                }
 
-                string query = @"UPDATE RENTALS 
-                         SET CustomerID=@cid,
-                             CarID=@carid,
-                             RentDate=@rentDate,
-                             ReturnDate=@returnDate,
-                             TotalAmount=@total
-                         WHERE RentalID=@rid";
+                if (!decimal.TryParse(textBox6.Text, out decimal total))
+                {
+                    MessageBox.Show("Invalid amount");
+                    return;
+                }
 
-                SqlCommand cmd = new SqlCommand(query, con);
+                using (SqlConnection con = new SqlConnection(connectionString))
+                {
+                    con.Open();
 
-                cmd.Parameters.AddWithValue("@rid", rentalId);
-                cmd.Parameters.AddWithValue("@cid", customerId);
-                cmd.Parameters.AddWithValue("@carid", carId);
-                cmd.Parameters.AddWithValue("@rentDate", DateTime.Parse(textBox4.Text));
+                    string checkQuery = @"SELECT COUNT(*) FROM RENTALS 
+                   WHERE CarID = @carId 
+                   AND ReturnDate IS NULL 
+                   AND RentalID != @rid";
 
-                if (string.IsNullOrWhiteSpace(textBox5.Text))
-                    cmd.Parameters.AddWithValue("@returnDate", DBNull.Value);
-                else
-                    cmd.Parameters.AddWithValue("@returnDate", DateTime.Parse(textBox5.Text));
+                    SqlCommand checkCmd = new SqlCommand(checkQuery, con);
+                    checkCmd.Parameters.AddWithValue("@carId", carId);
+                    checkCmd.Parameters.AddWithValue("@rid", rentalId);
 
-                cmd.Parameters.AddWithValue("@total", total);
+                    int count = Convert.ToInt32(checkCmd.ExecuteScalar());
 
-                int rows = cmd.ExecuteNonQuery();
+                    if (count > 0)
+                    {
+                        MessageBox.Show("Car is already rented!");
+                        return;
+                    }
 
-                if (rows > 0)
-                    MessageBox.Show("Rental updated successfully!");
-                else
-                    MessageBox.Show("No record updated! Check RentalID.");
+                    string query = @"UPDATE RENTALS 
+              SET CustomerID=@cid,
+                  CarID=@carid,
+                  RentDate=@rentDate,
+                  ReturnDate=@returnDate,
+                  TotalAmount=@total
+              WHERE RentalID=@rid";
+
+                    SqlCommand cmd = new SqlCommand(query, con);
+
+                    cmd.Parameters.AddWithValue("@rid", rentalId);
+                    cmd.Parameters.AddWithValue("@cid", customerId);
+                    cmd.Parameters.AddWithValue("@carid", carId);
+                    cmd.Parameters.AddWithValue("@rentDate", DateTime.Parse(textBox4.Text));
+
+                    if (string.IsNullOrWhiteSpace(textBox5.Text))
+                        cmd.Parameters.AddWithValue("@returnDate", DBNull.Value);
+                    else
+                        cmd.Parameters.AddWithValue("@returnDate", DateTime.Parse(textBox5.Text));
+
+                    cmd.Parameters.AddWithValue("@total", total);
+
+                    int rows = cmd.ExecuteNonQuery();
+
+                    if (rows > 0)
+                        MessageBox.Show("Rental updated successfully!");
+                    else
+                        MessageBox.Show("No record updated! Check RentalID.");
+                }
+
+                this.Close();
             }
-
-            this.Close();
-
-
+            catch (FormatException)
+            {
+                MessageBox.Show("Invalid date format. Please enter correct date values.");
+            }
+            catch (SqlException ex)
+            {
+                MessageBox.Show("Database error: " + ex.Message);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Unexpected error: " + ex.Message);
+            }
         }
     }
 }

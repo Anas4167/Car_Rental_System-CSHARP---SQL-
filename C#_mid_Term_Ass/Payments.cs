@@ -64,8 +64,10 @@ namespace C__project_Term
 
         private void button4_Click(object sender, EventArgs e)
         {
+            //inser payment
             insertPayment inserPay = new insertPayment();
-            inserPay.FormClosed += (s, args) => LoadPayment();
+            inserPay.FormClosed += (s, args) => LoadPayment(); //aoutamatic
+                                                               //loading
             inserPay.Show();
         }
 
