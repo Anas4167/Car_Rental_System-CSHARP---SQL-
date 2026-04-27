@@ -1,94 +1,112 @@
-<<<<<<< HEAD
-# 🚗 Car Rental Management System
+# 🚗 Car Rental Management System (C# + SQL Server)
 
-A **Car Rental Management System** built to manage car rentals efficiently.
-This system allows users to rent cars, return them, and manage customers, vehicles, and rental records.
+A **Car Rental Management System** developed using **C# (WinForms)** and **SQL Server** to manage customers, cars, rentals, and payments efficiently.
 
 ---
 
 ## 📌 Features
 
-* 🔐 User-friendly interface (WinForms)
-* 🚘 Manage cars (Add, Update, Delete)
-* 👤 Manage customers
-* 📅 Rent and return cars
-* 💰 Automatic total cost calculation
-* 🔄 Car status update (Available / Rented)
-* 🧾 View rental history
+* 👤 Manage Customers (Add, Update, Delete)
+* 🚘 Manage Cars (Add, Update, Delete)
+* 👨‍💼 Manage Employees
+* 📅 Rent and Return Cars
+* 💰 Track Payments
+* 🔄 Automatic Car Status Update (Available / Rented)
+* 🧾 View Rental Records with Customer & Car Details
 
 ---
 
 ## 🛠️ Technologies Used
 
-* 💻 **C# (WinForms)**
-* 🗄️ **SQL Server**
-* 🔗 **ADO.NET**
+* 💻 C# (Windows Forms)
+* 🗄️ SQL Server
+* 🔗 ADO.NET
 
 ---
 
-## 🗂️ Database Structure
+## 🗂️ Database Design
 
-### Tables:
-
-* **CARS**
-
-  * CarID (Primary Key)
-  * CarName
-  * Model
-  * PricePerDay
-  * Status
+### 📊 Tables
 
 * **CUSTOMERS**
 
-  * CustomerID (Primary Key)
-  * FirstName
-  * LastName
-  * Phone
+  * CustomerID (PK)
+  * FirstName, LastName
+  * PhoneNumber, Email, Password
+  * Address
+
+* **CARS**
+
+  * CarID (PK)
+  * CarName, Brand, Model
+  * YearMade, PlateNumber
+  * PricePerDay
+  * Status (Available / Rented)
+
+* **EMPLOYEES**
+
+  * EmployeeID (PK)
+  * FirstName, LastName
+  * PositionName
+  * PhoneNumber, Salary
 
 * **RENTALS**
 
-  * RentalID (Primary Key)
-  * CustomerID (Foreign Key)
-  * CarID (Foreign Key)
-  * RentDate
-  * ReturnDate
+  * RentalID (PK)
+  * CustomerID (FK)
+  * CarID (FK)
+  * RentDate, ReturnDate
   * TotalAmount
+
+* **PAYMENTS**
+
+  * PaymentID (PK)
+  * RentalID (FK)
+  * PaymentDate
+  * PaymentMethod
+  * AmountPaid
 
 ---
 
-## ⚙️ Key Functionalities
+## ⚙️ Database Logic
 
-### 🔹 Stored Procedures
+### 🔹 Stored Procedure
 
-* GetAllRentals
-* InsertRental
-* UpdateRental
-* DeleteRental
+**GetAllRentals**
+
+* Retrieves rental data with:
+
+  * Customer name
+  * Car name
+  * Rental details
+
+---
 
 ### 🔹 Trigger
 
-* Automatically updates car status:
+**trg_UpdateCarStatus**
 
-  * If `ReturnDate IS NULL` → **Rented**
-  * If `ReturnDate IS NOT NULL` → **Available**
+Automatically updates car status:
+
+* `ReturnDate IS NULL` → **Rented**
+* `ReturnDate IS NOT NULL` → **Available**
 
 ---
 
-## 🚀 How to Run the Project
+### 🔹 Constraint
 
-1. Clone the repository:
+* Ensures:
 
-   ```bash
-   git clone https://github.com/Anas4167/Car-Rental-System.git
-   ```
+  * `ReturnDate >= RentDate`
 
-2. Open the project in **Visual Studio**
+---
 
-3. Restore the database in **SQL Server**
+## 🚀 Future Improvements
 
-4. Update your connection string in `App.config`
-
-5. Run the application ▶️
+* 🔐 Authentication system (Login/Register)
+* 📊 Reports (PDF/Charts)
+* 🌐 Web version (ASP.NET / MERN)
+* 💳 Online payment integration
 
 ---
 
@@ -101,11 +119,10 @@ This system allows users to rent cars, return them, and manage customers, vehicl
 
 ## ⭐ Support
 
-If you like this project, give it a ⭐ on GitHub!
+If you find this project useful, give it a ⭐ on GitHub!
 
 ---
 
 ## 📄 License
 
 This project is for educational purposes.
-=======
