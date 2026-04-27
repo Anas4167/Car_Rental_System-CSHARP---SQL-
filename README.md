@@ -13,6 +13,7 @@ A **Car Rental Management System** developed using **C# (WinForms)** and **SQL S
 * 💰 Track Payments
 * 🔄 Automatic Car Status Update (Available / Rented)
 * 🧾 View Rental Records with Customer & Car Details
+* 🔐 Authentication system (Login/Register)
 
 ---
 
@@ -103,7 +104,6 @@ Automatically updates car status:
 
 ## 🚀 Future Improvements
 
-* 🔐 Authentication system (Login/Register)
 * 📊 Reports (PDF/Charts)
 * 🌐 Web version (ASP.NET / MERN)
 * 💳 Online payment integration
